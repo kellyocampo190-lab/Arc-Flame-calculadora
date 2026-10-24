@@ -1,7 +1,7 @@
 import Link from "next/link";
 
+import { toggleMaterialStatus } from "@/app/materials/actions";
 import { createClient } from "@/lib/supabase/server";
-
 
 type Material = {
   id: string;
@@ -83,60 +83,117 @@ export default async function MaterialsPage() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[760px] text-left text-sm">
+              <table className="w-full min-w-[950px] text-left text-sm">
                 <thead className="border-b border-stone-200 bg-stone-100 text-xs uppercase tracking-wide text-stone-600">
                   <tr>
-                    <th className="px-6 py-4 font-semibold">Material</th>
-                    <th className="px-6 py-4 font-semibold">Category</th>
-                    <th className="px-6 py-4 font-semibold">Unit</th>
-                    <th className="px-6 py-4 font-semibold">Unit cost</th>
-                    <th className="px-6 py-4 font-semibold">Supplier</th>
-                    <th className="px-6 py-4 font-semibold">Status</th>
+                    <th className="px-6 py-4 font-semibold">
+                      Material
+                    </th>
+
+                    <th className="px-6 py-4 font-semibold">
+                      Category
+                    </th>
+
+                    <th className="px-6 py-4 font-semibold">
+                      Unit
+                    </th>
+
+                    <th className="px-6 py-4 font-semibold">
+                      Unit cost
+                    </th>
+
+                    <th className="px-6 py-4 font-semibold">
+                      Supplier
+                    </th>
+
+                    <th className="px-6 py-4 font-semibold">
+                      Status
+                    </th>
+
+                    <th className="px-6 py-4 font-semibold">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
 
                 <tbody className="divide-y divide-stone-100">
-                  {materials.map((material) => (
-                    <tr
-                      key={material.id}
-                      className="transition hover:bg-stone-50"
-                    >
-                      <td className="px-6 py-4 font-medium">
-                        {material.name}
-                      </td>
+                  {materials.map((material) => {
+                    const changeStatus = toggleMaterialStatus.bind(
+                      null,
+                      material.id,
+                      !material.is_active,
+                    );
 
-                      <td className="px-6 py-4 text-stone-600">
-                        {material.category || "Not specified"}
-                      </td>
+                    return (
+                      <tr
+                        key={material.id}
+                        className="transition hover:bg-stone-50"
+                      >
+                        <td className="px-6 py-4 font-medium">
+                          {material.name}
+                        </td>
 
-                      <td className="px-6 py-4 text-stone-600">
-                        {material.unit}
-                      </td>
+                        <td className="px-6 py-4 text-stone-600">
+                          {material.category || "Not specified"}
+                        </td>
 
-                      <td className="px-6 py-4 font-medium">
-                        {new Intl.NumberFormat("en-GB", {
-                          style: "currency",
-                          currency: "GBP",
-                        }).format(Number(material.unit_cost))}
-                      </td>
+                        <td className="px-6 py-4 text-stone-600">
+                          {material.unit}
+                        </td>
 
-                      <td className="px-6 py-4 text-stone-600">
-                        {material.supplier || "Not specified"}
-                      </td>
+                        <td className="px-6 py-4 font-medium">
+                          {new Intl.NumberFormat("en-GB", {
+                            style: "currency",
+                            currency: "GBP",
+                          }).format(Number(material.unit_cost))}
+                        </td>
 
-                      <td className="px-6 py-4">
-                        <span
-                          className={
-                            material.is_active
-                              ? "rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800"
-                              : "rounded-full bg-stone-200 px-3 py-1 text-xs font-medium text-stone-600"
-                          }
-                        >
-                          {material.is_active ? "Active" : "Inactive"}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                        <td className="px-6 py-4 text-stone-600">
+                          {material.supplier || "Not specified"}
+                        </td>
+
+                        <td className="px-6 py-4">
+                          <span
+                            className={
+                              material.is_active
+                                ? "rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800"
+                                : "rounded-full bg-stone-200 px-3 py-1 text-xs font-medium text-stone-600"
+                            }
+                          >
+                            {material.is_active
+                              ? "Active"
+                              : "Inactive"}
+                          </span>
+                        </td>
+
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-4">
+                            <Link
+                              href={`/materials/${material.id}/edit`}
+                              className="font-medium text-amber-800 transition hover:text-amber-950"
+                            >
+                              Edit
+                            </Link>
+
+                            <form action={changeStatus}>
+                              <button
+                                type="submit"
+                                className={
+                                  material.is_active
+                                    ? "font-medium text-red-700 transition hover:text-red-900"
+                                    : "font-medium text-emerald-700 transition hover:text-emerald-900"
+                                }
+                              >
+                                {material.is_active
+                                  ? "Deactivate"
+                                  : "Activate"}
+                              </button>
+                            </form>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
