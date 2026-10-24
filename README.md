@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arc & Flame Costing and Quotation Platform
 
-## Getting Started
+A web-based costing and quotation management platform developed for Arc & Flame Silver Jewellery.
 
-First, run the development server:
+The platform helps the business owner calculate production costs, estimate selling prices, manage material prices and prepare customer quotations from one central system.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project Purpose
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Arc & Flame Silver Jewellery is independently managed by its owner, who is responsible for designing and producing jewellery, purchasing materials, calculating prices, preparing quotations, communicating with customers and managing the business.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The purpose of this project is to simplify the costing and quotation process, reduce pricing errors and provide an organised record of previous calculations and quotations.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project was developed for academic purposes as part of a university software engineering project.
 
-## Learn More
+## Main Features
 
-To learn more about Next.js, take a look at the following resources:
+### Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Secure login
+- Protected platform routes
+- User session management
+- Sign-out functionality
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Material Management
 
-## Deploy on Vercel
+- Register materials
+- Record material prices
+- Define the measurement unit
+- Update material information
+- Activate or deactivate materials
+- Use active materials in cost calculations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Cost Calculator
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Select previously registered materials
+- Enter the quantity of each material
+- Calculate the total material cost
+- Calculate labour based on hours and hourly rate
+- Add packaging costs
+- Add delivery costs
+- Add other production expenses
+- Apply a profit margin
+- Estimate the final selling price
+
+### Sales Channel Costs
+
+The calculator supports different types of sales channels:
+
+- Direct sales
+- Own website
+- Online marketplace
+- Physical display
+- Market or event
+- Other sales channels
+
+Depending on the selected channel, the calculation may include:
+
+- Percentage fees
+- Fixed fees per sale
+- Recurring costs
+- Expected number of sales
+- Allocated recurring costs
+
+### Calculation History
+
+- Save completed calculations
+- View previous calculations
+- Review the complete cost breakdown
+- Access the materials used in each calculation
+- View the recommended selling price and estimated profit
+
+### Quotation Management
+
+- Create a quotation from a saved calculation
+- Add customer information
+- Add a jewellery description
+- Include deposit requirements
+- Define an estimated production time
+- Set a quotation expiry date
+- Add payment conditions
+- Add one-off materials or expenses for customised jewellery
+- Save and review previous quotations
+- Download quotations as PDF files
+
+## One-Off Custom Costs
+
+Personalised jewellery may require materials that are not normally kept in stock, such as a specific stone requested by a customer.
+
+The quotation module allows the owner to add temporary materials and additional costs without registering them in the permanent material catalogue. These costs apply only to the selected quotation.
+
+## Technologies Used
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Supabase
+- PostgreSQL
+- Supabase Authentication
+- React PDF
+- Git
+- GitHub
+- Netlify
+
+## Technical Architecture
+
+The platform follows a web-based client-server architecture:
+
+- **Presentation layer:** Next.js, React and Tailwind CSS
+- **Application layer:** Next.js server actions and calculation logic
+- **Data layer:** Supabase and PostgreSQL
+- **Authentication:** Supabase Authentication
+- **Deployment:** Netlify
+- **Version control:** Git and GitHub
+
+## Data Model
+
+The main data entities are:
+
+- Users
+- Materials
+- Calculations
+- Calculation materials
+- Quotations
+- Quotation custom costs
+
+Each calculation and quotation is associated with the authenticated user. Row Level Security policies are used to restrict access to the corresponding records.
+
+## Project Methodology
+
+The project was managed using a Kanban methodology.
+
+The project board was organised into the following stages:
+
+- Backlog
+- To Do
+- In Progress
+- Testing
+- Done
+
+User stories and development tasks were moved through these stages according to their progress.
+
+
